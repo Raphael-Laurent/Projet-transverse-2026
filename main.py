@@ -10,11 +10,9 @@ def cleanup(video_path, frames_folder="frames"):
     if os.path.exists(video_path):
         os.remove(video_path)
 
-    """
     # supprimer dossier frames
     if os.path.exists(frames_folder):
         shutil.rmtree(frames_folder)
-    """
      
 def main():
     url = input("URL TikTok : ")
