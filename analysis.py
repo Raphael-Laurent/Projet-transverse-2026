@@ -6,7 +6,7 @@ Analyse rapidement ce texte provenant d'un audio tiktok et attribue lui un score
 
 Répond uniquement en JSON, sans explications, ni commentaires, ni autres éléments :
 - score sur 100
-- label (true/false/uncertain)
+- label (true 100 - 66 /false 0 - 33/uncertain 33 - 66)
 
 Texte :
 {text}
@@ -21,7 +21,7 @@ Ce texte est le résultat de plusieurs frames d'une vidéo traduite en texte, an
 
 Réponds en JSON sans explications, ni commentaires, ni autres éléments :
 - score sur 100
-- label (true/false/uncertain)
+- label (true 100 - 66 /false 0 - 33/uncertain 33 - 66)
 
 Texte :
 {text}
