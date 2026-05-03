@@ -155,7 +155,7 @@ def analyze_audio(text: str) -> dict:
 Réponds UNIQUEMENT en JSON valide avec ces champs :
 - "score": nombre entier de 0 à 100 (100 = très fiable, 0 = faux)
 - "label": "true" (score 67-100), "uncertain" (score 34-66), ou "false" (score 0-33)
-- "explanation": une phrase expliquant ton évaluation
+- "explanation": une phrase courte expliquant ton évaluation (OBLIGATOIREMENT EN FRANÇAIS)
 
 Texte à analyser :
 {text}"""
@@ -197,7 +197,7 @@ ou de génération par intelligence artificielle (deepfake, images IA, montage, 
 Réponds UNIQUEMENT en JSON valide avec ces champs :
 - "score": nombre entier de 0 à 100 (100 = authentique, 0 = manipulé/IA)
 - "label": "true" (score 67-100), "uncertain" (score 34-66), ou "false" (score 0-33)
-- "explanation": une phrase expliquant ton évaluation
+- "explanation": une phrase courte expliquant ton évaluation (OBLIGATOIREMENT EN FRANÇAIS)
 
 Données visuelles :
 {visual_context}"""

@@ -12,6 +12,21 @@ import logging
 import requests
 from PIL import Image
 
+# Configuration Tesseract pour Windows
+try:
+    import pytesseract
+    tesseract_paths = [
+        r"C:\Program Files\Tesseract-OCR\tesseract.exe",
+        r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe",
+        os.path.expandvars(r"%LOCALAPPDATA%\Programs\Tesseract-OCR\tesseract.exe")
+    ]
+    for p in tesseract_paths:
+        if os.path.exists(p):
+            pytesseract.pytesseract.tesseract_cmd = p
+            break
+except ImportError:
+    pass
+
 logger = logging.getLogger(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -26,7 +41,7 @@ class ImageAnalysisError(Exception):
     pass
 
 
-def extract_frames(video_path: str, output_folder: str = None, max_frames: int = 5) -> list[str]:
+def extract_frames(video_path: str, output_folder: str = None, max_frames: int = 15) -> list[str]:
     """
     Extrait des frames à intervalles réguliers sur toute la durée de la vidéo.
 
@@ -134,7 +149,7 @@ def analyze_frame_with_vision(image_path: str) -> str:
         "Décris brièvement cette image extraite d'une vidéo de réseau social. "
         "Indique si tu détectes des signes de manipulation ou de génération par IA "
         "(artefacts visuels, incohérences, texte superposé suspect, etc.). "
-        "Sois concis."
+        "IMPORTANT : Sois concis et réponds obligatoirement en FRANÇAIS."
     )
 
     try:
@@ -159,7 +174,7 @@ def analyze_frame_with_vision(image_path: str) -> str:
         return ""
 
 
-def analyze_video_frames(video_path: str, max_frames: int = 5, use_vision: bool = True) -> dict:
+def analyze_video_frames(video_path: str, max_frames: int = 15, use_vision: bool = True) -> dict:
     """
     Pipeline complet d'analyse visuelle d'une vidéo.
 
