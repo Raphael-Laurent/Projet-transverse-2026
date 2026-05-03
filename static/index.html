@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Detector — Projet Transverse</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons for elegant iconography -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <div class="background-effects">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+    </div>
+
+    <main class="container">
+        <header class="app-header">
+            <div class="logo-wrapper">
+                <i class="ph ph-shield-check"></i>
+            </div>
+            <h1>Deepfake Detector</h1>
+            <p>Analysez instantanément les vidéos TikTok, YouTube ou Instagram pour détecter les contenus générés par IA.</p>
+        </header>
+
+        <section class="input-section glass-panel">
+            <form id="analyze-form">
+                <div class="input-group">
+                    <i class="ph ph-link"></i>
+                    <input type="url" id="video-url" placeholder="Collez l'URL de la vidéo ici..." required autocomplete="off">
+                    <button type="submit" id="submit-btn">
+                        <span>Analyser</span>
+                        <i class="ph ph-arrow-right"></i>
+                    </button>
+                </div>
+            </form>
+            <div class="system-status" id="system-status">
+                <span class="status-dot"></span> Vérification du système...
+            </div>
+        </section>
+
+        <!-- Loading State -->
+        <section class="loading-section" id="loading-section" style="display: none;">
+            <div class="spinner-container">
+                <svg class="spinner" viewBox="0 0 50 50">
+                    <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                </svg>
+            </div>
+            <h3 class="loading-title">Analyse en cours...</h3>
+            <div class="loading-steps">
+                <div class="step active" id="step-download"><i class="ph ph-download-simple"></i> Téléchargement de la vidéo</div>
+                <div class="step" id="step-audio"><i class="ph ph-waveform"></i> Transcription & Analyse Audio</div>
+                <div class="step" id="step-vision"><i class="ph ph-eye"></i> Analyse Visuelle & IA</div>
+                <div class="step" id="step-final"><i class="ph ph-brain"></i> Traitement LLM Mistral</div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section" id="results-section" style="display: none;">
+            
+            <div class="score-card glass-panel" id="main-score-card">
+                <div class="score-header">Score de Fiabilité</div>
+                <div class="score-circle-wrapper">
+                    <svg class="circular-chart" viewBox="0 0 36 36">
+                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path class="circle" id="score-circle" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <text x="18" y="20.35" class="percentage" id="score-text">0%</text>
+                    </svg>
+                </div>
+                <h2 class="verdict-title" id="verdict-title">Authentique</h2>
+                <p class="verdict-subtitle" id="verdict-subtitle">Cette vidéo ne présente pas de signes évidents de manipulation.</p>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail-card glass-panel">
+                    <div class="card-header">
+                        <i class="ph ph-waveform"></i>
+                        <h3>Analyse Audio</h3>
+                        <span class="badge" id="audio-score-badge">--/100</span>
+                    </div>
+                    <div class="card-body">
+                        <p id="audio-explanation">En attente d'analyse...</p>
+                        <div class="meta-info">
+                            <span><i class="ph ph-text-aa"></i> <span id="audio-length">0</span> caractères analysés</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-card glass-panel">
+                    <div class="card-header">
+                        <i class="ph ph-eye"></i>
+                        <h3>Analyse Visuelle</h3>
+                        <span class="badge" id="visual-score-badge">--/100</span>
+                    </div>
+                    <div class="card-body">
+                        <p id="visual-explanation">En attente d'analyse...</p>
+                        <div class="meta-info">
+                            <span><i class="ph ph-video"></i> <span id="visual-frames">0</span> frames traitées</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-secondary" id="reset-btn">Analyser une autre vidéo</button>
+
+        </section>
+        
+        <!-- Error Toast -->
+        <div class="toast error" id="error-toast">
+            <i class="ph ph-warning-circle"></i>
+            <span id="error-message">Une erreur est survenue.</span>
+        </div>
+
+    </main>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
